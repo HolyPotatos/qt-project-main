@@ -70,7 +70,7 @@ class BaseModel(ABC):
 
     @property
     def _table_name(self):
-        return self.__class__.__name__.lower()
+        return '"{}"'.format(self.__class__.__name__.lower())
 
     @classmethod
     def _create_table(cls):
@@ -191,7 +191,7 @@ class BaseModel(ABC):
 
     @classmethod
     def fetch_all(cls: Type[T]) -> list[T]:
-        sql = 'SELECT * FROM {}'.format(cls.__name__.lower())
+        sql = 'SELECT * FROM "{}"'.format(cls.__name__.lower())
         cur = get_db().cursor()
         cur.execute(sql)
         items = [cls(**cls.prepare_row(row)) for row in cur.fetchall()]
@@ -200,7 +200,7 @@ class BaseModel(ABC):
 
     @classmethod
     def fetch_by_id(cls: Type[T], pk: int) -> T:
-        sql = 'SELECT * FROM {} WHERE id={}'.format(cls.__name__.lower(), pk)
+        sql = 'SELECT * FROM "{}" WHERE id={}'.format(cls.__name__.lower(), pk)
         cur = get_db().cursor()
         cur.execute(sql)
         row = cur.fetchone()

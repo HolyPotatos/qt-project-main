@@ -48,6 +48,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="orderButton">
+        <property name="text">
+         <string>Заказы</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -75,8 +82,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>458</width>
-         <height>478</height>
+         <width>460</width>
+         <height>487</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -93,12 +100,12 @@
          <number>2</number>
         </property>
         <property name="verticalSpacing">
-         <number>-1</number>
+         <number>6</number>
         </property>
         <item row="0" column="0">
          <layout class="QGridLayout" name="pilesGrid">
           <property name="spacing">
-           <number>-1</number>
+           <number>6</number>
           </property>
          </layout>
         </item>
@@ -108,14 +115,26 @@
     </item>
     <item row="1" column="2">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="3">
+      <item row="2" column="4">
        <widget class="QPushButton" name="submit">
         <property name="text">
-         <string>Завершить</string>
+         <string>Заказать</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="4">
+      <item row="2" column="0">
+       <widget class="QLabel" name="totalLabel">
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Итого:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="5">
        <widget class="QListWidget" name="orderList">
         <property name="font">
          <font>
@@ -133,6 +152,18 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="totalSum">
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="2">
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
@@ -146,27 +177,10 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="totalLabel">
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>Итого:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="totalSum">
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>0</string>
+         <string>Очистить</string>
         </property>
        </widget>
       </item>
@@ -180,7 +194,7 @@
      <x>0</x>
      <y>0</y>
      <width>953</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
