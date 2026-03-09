@@ -16,9 +16,9 @@ class ChoicePile(Ui_Pile, QWidget):
         super().__init__()
         self.setupUi(self)
         self.pileTitle.setText(title)
-        stylesheet = f'''background-image: url({image});
-                        background-repeat: no-repeat;
-                        background-position: center;'''
+        stylesheet = f'''#imageFrame {{
+                            image: url({image});
+                    }}'''
         self.imageFrame.setStyleSheet(stylesheet)
         self.pileTitle.setStyleSheet('background: #1212ce; color: #ffffff;')
 
