@@ -1,5 +1,5 @@
 /qt-project.zip
 .idea/
-venv/
+.venv/
 /db.sqlite
 *.pyc

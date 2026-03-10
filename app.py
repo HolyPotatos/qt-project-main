@@ -11,6 +11,7 @@ from ui.MainWindow import Ui_MainWindow
 from widgets.CategoryDialog import CategoryDialog
 from widgets.ChoicePile import ChoicePile
 from widgets.ProductDialog import ProductDialog
+from widgets.OrderDialog import OrderDialog
 
 
 def init_db():
@@ -30,6 +31,8 @@ class MyWindow(Ui_MainWindow, QMainWindow):
         self.exitMenu.triggered.connect(self.close)
         self.addCategoryMenu.triggered.connect(self.open_category_dialog)
         self.addProductMenu.triggered.connect(self.open_product_dialog)
+        self.pushButton.clicked.connect(self.clear_cart)
+        self.orderButton.clicked.connect(self.open_order_dialog)
         self.toCategoriesButton.clicked.connect(self.setup_categories)
         self.initTestData.triggered.connect(self.init_test_data)
         self.orderList.itemDoubleClicked.connect(self.remove_from_cart)
@@ -42,6 +45,10 @@ class MyWindow(Ui_MainWindow, QMainWindow):
         dlg.setWindowTitle('Добавить новую категорию')
         dlg.accepted.connect(self.setup_categories)
         dlg.exec()
+
+    def open_order_dialog(self):
+        dlg = OrderDialog(self)
+        dlg.show()
 
     def open_product_dialog(self):
         dlg = ProductDialog(self)
@@ -105,12 +112,45 @@ class MyWindow(Ui_MainWindow, QMainWindow):
                 product.category = category
                 product.save()
         self.setup_categories()
+    
+    def clear_cart(self):
+        """Очищает корзину"""
+        self.orderList.clear()
+        self.calc_total()
 
     def submit_order(self):
         """ Завершаем выполнения заказа """
-        self.orderList.clear()
-        self.calc_total()
-        # TODO: Сделать сохранение заказа
+        if self.orderList.count() == 0:
+            return
+        
+        cart_items = {}
+        total_sum = 0
+        
+        for i in range(self.orderList.count()):
+            item = self.orderList.item(i)
+            product = item.obj 
+            if product.id in cart_items:
+                cart_items[product.id]['count'] += 1
+            else:
+                cart_items[product.id] = {
+                    'product': product,
+                    'count': 1,
+                    'price': product.price
+                }
+            total_sum += product.price
+
+        current_time = int(time.time())
+        new_order = Order(None, current_time, total_sum)
+        new_order.save()
+
+        for data in cart_items.values():
+            prod = data['product']
+            count = data['count']
+            price = data['price']
+            order_product = OrderProduct(None, prod, price, count, new_order)
+            order_product.save()
+
+        self.clear_cart()
 
 
 if __name__ == '__main__':

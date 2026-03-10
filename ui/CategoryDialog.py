@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './ui/CategoryDialog.ui'
+# Form implementation generated from reading ui file 'C:\Users\holyp\OneDrive\Рабочий стол\asd\qt-project-main\ui\CategoryDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
