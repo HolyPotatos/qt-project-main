@@ -120,8 +120,37 @@ class MyWindow(Ui_MainWindow, QMainWindow):
 
     def submit_order(self):
         """ Завершаем выполнения заказа """
+        if self.orderList.count() == 0:
+            return
+        
+        cart_items = {}
+        total_sum = 0
+        
+        for i in range(self.orderList.count()):
+            item = self.orderList.item(i)
+            product = item.obj 
+            if product.id in cart_items:
+                cart_items[product.id]['count'] += 1
+            else:
+                cart_items[product.id] = {
+                    'product': product,
+                    'count': 1,
+                    'price': product.price
+                }
+            total_sum += product.price
+
+        current_time = int(time.time())
+        new_order = Order(None, current_time, total_sum)
+        new_order.save()
+
+        for data in cart_items.values():
+            prod = data['product']
+            count = data['count']
+            price = data['price']
+            order_product = OrderProduct(None, prod, price, count, new_order)
+            order_product.save()
+
         self.clear_cart()
-        # TODO: Сделать сохранение заказа
 
 
 if __name__ == '__main__':
